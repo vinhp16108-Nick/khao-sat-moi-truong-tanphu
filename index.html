@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phiếu khảo sát Bảo vệ Môi trường - UBND Phường Tân Phú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+<style>
+  :root{
+    --navy-900:#0B2A4A;
+    --navy-800:#0F3861;
+    --navy-700:#154877;
+    --blue-accent:#1B6CA8;
+    --gold-accent:#B8862E;
+    --bg:#EEF2F6;
+    --surface:#FFFFFF;
+    --surface-alt:#F6F8FB;
+    --border:#D7E0E9;
+    --text:#1B2733;
+    --muted:#5E6E7E;
+    --success:#1E7A4C;
+    --success-bg:#E7F4EC;
+    --danger:#B3261E;
+    --danger-bg:#FBEAE9;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Be Vietnam Pro', 'Segoe UI', sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+  }
+  header.top{
+    background:linear-gradient(135deg, var(--navy-900), var(--navy-700));
+    color:#fff;
+    padding:22px 28px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    box-shadow:0 2px 10px rgba(11,42,74,0.25);
+  }
+  .emblem{
+    width:52px;height:52px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #FFD98A, var(--gold-accent));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Source Serif 4', serif;font-weight:700;color:var(--navy-900);
+    font-size:20px;flex-shrink:0;
+    box-shadow:inset 0 0 0 3px rgba(255,255,255,0.35);
+  }
+  header.top .titles{line-height:1.35;}
+  header.top .eyebrow{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#CFE0F0;font-weight:600;}
+  header.top h1{margin:2px 0 0;font-size:19px;font-weight:700;font-family:'Source Serif 4', serif;}
+  header.top .sub{font-size:12.5px;color:#BFD4E8;margin-top:2px;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:22px 18px 60px;}
+
+  .notice{
+    background:#FFF7E6;border:1px solid #F0D48A;color:#C0392B;font-style:italic;
+    border-radius:var(--radius);padding:12px 16px;font-size:13.5px;margin-bottom:18px;
+    display:flex;gap:10px;align-items:flex-start;
+  }
+  .notice b{white-space:nowrap;color:#C0392B;}
+
+  .tabs{
+    display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;
+    border-bottom:2px solid var(--border);
+  }
+  .tab-btn{
+    border:none;background:transparent;padding:10px 14px;font-size:13.5px;font-weight:600;
+    color:var(--muted);cursor:pointer;border-radius:8px 8px 0 0;position:relative;
+    transition:color .15s;
+  }
+  .tab-btn .n{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;border-radius:50%;background:var(--border);color:var(--navy-800);
+    font-size:11px;margin-right:7px;font-weight:700;
+  }
+  .tab-btn.active{color:var(--navy-900);}
+  .tab-btn.active .n{background:var(--blue-accent);color:#fff;}
+  .tab-btn.active::after{
+    content:"";position:absolute;left:8px;right:8px;bottom:-2px;height:3px;
+    background:var(--blue-accent);border-radius:3px 3px 0 0;
+  }
+  .tab-btn.done .n::after{content:"✓";}
+
+  .panel{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:24px 26px;display:none;animation:fade .25s ease;
+  }
+  .panel.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+
+  .panel h2{
+    font-family:'Source Serif 4', serif;font-size:18px;color:var(--navy-900);
+    margin:0 0 4px;border-left:4px solid var(--blue-accent);padding-left:10px;
+  }
+  .panel .hint{color:#C0392B;font-style:italic;font-size:12.5px;margin:0 0 18px 14px;}
+
+  .field-group{margin-bottom:16px;}
+  .field-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px;}
+  .field-row .field-group{flex:1 1 220px;margin-bottom:0;}
+
+  label.q{display:block;font-size:13.5px;font-weight:600;color:var(--navy-800);margin-bottom:6px;}
+  label.q .req{color:var(--danger);margin-left:2px;}
+  label.q .unit{font-weight:400;font-style:italic;color:#C0392B;}
+
+  input[type=text], input[type=number], input[type=email], input[type=date], textarea{
+    width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;
+    font-family:inherit;font-size:13.5px;color:var(--text);background:#fff;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  input:focus, textarea:focus{
+    outline:none;border-color:var(--blue-accent);box-shadow:0 0 0 3px rgba(27,108,168,0.15);
+  }
+  textarea{resize:vertical;min-height:56px;}
+
+  .choice-group{display:flex;flex-wrap:wrap;gap:10px;}
+  .choice{
+    display:flex;align-items:center;gap:7px;background:var(--surface-alt);
+    border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:13.5px;
+    cursor:pointer;transition:border-color .15s, background .15s;
+  }
+  .choice:hover{border-color:var(--blue-accent);}
+  .choice input{accent-color:var(--blue-accent);width:15px;height:15px;flex-shrink:0;}
+  .choice.checked{background:#E9F2FA;border-color:var(--blue-accent);}
+
+  .conditional{
+    border-left:3px solid var(--border);margin:12px 0 0 4px;padding:14px 0 2px 16px;
+    display:none;
+  }
+  .conditional.show{display:block;}
+
+  .nav-buttons{display:flex;justify-content:space-between;margin-top:22px;padding-top:16px;border-top:1px solid var(--border);}
+  button.btn{
+    border:none;border-radius:8px;padding:10px 18px;font-weight:600;font-size:13.5px;
+    cursor:pointer;transition:transform .1s, box-shadow .15s;font-family:inherit;
+  }
+  button.btn:active{transform:scale(0.98);}
+  .btn-primary{background:var(--blue-accent);color:#fff;}
+  .btn-primary:hover{box-shadow:0 4px 12px rgba(27,108,168,0.35);}
+  .btn-ghost{background:transparent;color:var(--navy-800);border:1px solid var(--border) !important;}
+  .btn-ghost:hover{border-color:var(--blue-accent) !important;}
+  .btn-gold{background:var(--gold-accent);color:#fff;}
+  .btn-gold:hover{box-shadow:0 4px 12px rgba(184,134,46,0.35);}
+
+  .summary-box{
+    background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius);
+    padding:16px 18px;margin-bottom:16px;font-size:13px;color:var(--muted);
+  }
+  .summary-box b{color:var(--text);}
+
+  .export-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
+  .export-card{
+    flex:1 1 260px;border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px;background:var(--surface-alt);
+  }
+  .export-card h3{margin:0 0 6px;font-size:14.5px;color:var(--navy-900);}
+  .export-card p{margin:0 0 12px;font-size:12.5px;color:var(--muted);line-height:1.5;}
+
+  #status-msg{
+    margin-top:14px;border-radius:8px;padding:11px 14px;font-size:13px;display:none;
+  }
+  #status-msg.ok{display:block;background:var(--success-bg);color:var(--success);border:1px solid #BEE3CC;}
+  #status-msg.err{display:block;background:var(--danger-bg);color:var(--danger);border:1px solid #F1C4C1;}
+  #status-msg.pending{display:block;background:#FFF7E6;color:#6B4E00;border:1px solid #F0D48A;}
+
+  .draft-pill{
+    font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:6px;
+  }
+  .draft-pill .dot{width:7px;height:7px;border-radius:50%;background:#9AA7B4;}
+  .draft-pill.saved .dot{background:var(--success);}
+
+  footer.app-footer{max-width:1100px;margin:0 auto;padding:0 18px 30px;color:var(--muted);font-size:11.5px;text-align:center;}
+
+  @media (max-width:640px){
+    .panel{padding:18px 16px;}
+    header.top{padding:16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="emblem">★</div>
+  <div class="titles">
+    <div class="eyebrow">UBND Phường Tân Phú · Phòng Kinh tế, Hạ tầng và Đô thị</div>
+    <h1>Phiếu khảo sát thông tin Bảo vệ Môi trường</h1>
+    <div class="sub">Doanh nghiệp / Cơ sở sản xuất, kinh doanh, dịch vụ</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="notice">
+    <span>⚠️</span>
+    <div><b>Lưu ý:</b> Đối với các nội dung không phát sinh, vui lòng ghi "Không phát sinh" hoặc "Không có". Các trường có dấu <span style="color:#B3261E">*</span> là bắt buộc.</div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <form id="surveyForm" onsubmit="return false;">
+
+  <!-- PANEL 0 - PHAN I -->
+  <section class="panel" data-panel="0">
+    <h2>Phần I. Thông tin chung</h2>
+    <p class="hint">Thông tin nhận diện doanh nghiệp / cơ sở</p>
+
+    <div class="field-group">
+      <label class="q">1. Tên doanh nghiệp/cơ sở sản xuất, kinh doanh, dịch vụ <span class="req">*</span><br><span class="unit">(Ghi tên đầy đủ theo Giấy chứng nhận đăng ký kinh doanh)</span></label>
+      <textarea id="ten_dn" required></textarea>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label class="q">2. Mã số thuế <span class="req">*</span></label>
+        <input type="text" id="mst" required>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="q">3. Tên Chi nhánh/địa điểm kinh doanh <br><span class="unit">(Ghi theo Giấy chứng nhận hoạt động Chi nhánh/địa điểm kinh doanh khác trụ sở chính, nếu không có ghi "Không có")</span></label>
+      <textarea id="ten_chinhanh"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="q">4. Địa chỉ trụ sở chính <span class="req">*</span></label>
+      <input type="text" id="dia_chi_tru_so" required>
+    </div>
+
+    <div class="field-group">
+      <label class="q">5. Địa điểm hoạt động sản xuất/kinh doanh <span class="req">*</span></label>
+      <input type="text" id="dia_diem_hoat_dong" required>
+    </div>
+
+    <div class="field-group">
+      <label class="q">6. Ngành nghề đang hoạt động <span class="req">*</span></label>
+      <textarea id="nganh_nghe" required></textarea>
+    </div>
+
+    <label class="q" style="margin-top:6px;">7. Người liên hệ</label>
+    <div class="field-row">
+      <div class="field-group"><label class="q">Họ và tên <span class="req">*</span></label><input type="text" id="lienhe_hoten" required></div>
+      <div class="field-group"><label class="q">Chức vụ</label><input type="text" id="lienhe_chucvu"></div>
+    </div>
+    <div class="field-row">
+      <div class="field-group"><label class="q">Điện thoại <span class="req">*</span></label><input type="text" id="lienhe_dienthoai" required></div>
+      <div class="field-group"><label class="q">Email</label><input type="email" id="lienhe_email"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <span></span>
+      <button type="button" class="btn btn-primary" onclick="goTo(1)">Tiếp theo →</button>
+    </div>
+  </section>
+
+  <!-- PANEL 1 - PHAN II -->
+  <section class="panel" data-panel="1">
+    <h2>Phần II. Thông tin về pháp lý môi trường</h2>
+
+    <div class="field-group">
+      <label class="q">1. Hồ sơ pháp lý môi trường đã được phê duyệt</label>
+      <div class="choice-group">
+        <label class="choice"><input type="checkbox" id="hs_dtm"> Quyết định phê duyệt ĐTM</label>
+        <label class="choice"><input type="checkbox" id="hs_gpmt"> Giấy phép môi trường</label>
+        <label class="choice"><input type="checkbox" id="hs_dkmt"> Đăng ký môi trường</label>
+        <label class="choice"><input type="checkbox" id="hs_khac_check"> Khác</label>
+      </div>
+      <div class="conditional" id="cond_hs_khac"><input type="text" id="hs_khac_text" placeholder="Ghi rõ..."></div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group"><label class="q">Số văn bản</label><input type="text" id="hs_so_vb"></div>
+      <div class="field-group"><label class="q">Ngày cấp</label><input type="date" id="hs_ngay_cap"></div>
+      <div class="field-group"><label class="q">Cơ quan cấp</label><input type="text" id="hs_co_quan_cap"></div>
+    </div>
+    <p class="hint" style="margin-left:0;">Vui lòng đính kèm bản sao tài liệu được duyệt khi gửi bản in.</p>
+
+    <div class="field-group">
+      <label class="q">2. Công suất theo hồ sơ pháp lý môi trường được phê duyệt</label>
+      <textarea id="congsuat_pheduyet"></textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="q">3. Công suất hoạt động thực tế hiện nay</label>
+      <textarea id="congsuat_thucte"></textarea>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn btn-ghost" onclick="goTo(0)">← Quay lại</button>
+      <button type="button" class="btn btn-primary" onclick="goTo(2)">Tiếp theo →</button>
+    </div>
+  </section>
+
+  <!-- PANEL 2 - PHAN III -->
+  <section class="panel" data-panel="2">
+    <h2>Phần III. Thông tin về nước thải</h2>
+
+    <div class="field-group">
+      <label class="q">1. Nguồn phát sinh nước thải</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="nt_nguon" value="Từ hoạt động sinh hoạt"> Từ hoạt động sinh hoạt</label>
+        <label class="choice"><input type="radio" name="nt_nguon" value="Từ hoạt động sản xuất"> Từ hoạt động sản xuất</label>
+        <label class="choice"><input type="radio" name="nt_nguon" value="Cả hai"> Cả hai</label>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="q">2. Nguồn tiếp nhận nước thải sau xử lý</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="nt_tiepnhan" value="Hệ thống thoát nước đô thị"> Hệ thống thoát nước đô thị</label>
+        <label class="choice"><input type="radio" name="nt_tiepnhan" value="Kênh/rạch"> Kênh/rạch</label>
+        <label class="choice"><input type="radio" name="nt_tiepnhan" value="Khác" id="nt_tiepnhan_khac_radio"> Khác</label>
+      </div>
+      <div class="conditional" id="cond_nt_tiepnhan_khac"><input type="text" id="nt_tiepnhan_khac_text" placeholder="Ghi rõ..."></div>
+    </div>
+
+    <label class="q">3. Tổng lượng nước thải phát sinh <span class="unit">(kèm hóa đơn tiền nước 03 tháng gần nhất khi gửi bản in)</span></label>
+    <div class="field-row">
+      <div class="field-group"><label class="q">Nước thải sinh hoạt <span class="unit">(m³/ngày đêm)</span></label><input type="number" step="any" id="nt_sinhhoat"></div>
+      <div class="field-group"><label class="q">Nước thải sản xuất <span class="unit">(m³/ngày đêm)</span></label><input type="number" step="any" id="nt_sanxuat"></div>
+      <div class="field-group"><label class="q">Tổng lượng <span class="unit">(m³/ngày đêm)</span></label><input type="number" step="any" id="nt_tong"></div>
+    </div>
+
+    <div class="field-group">
+      <label class="q">4. Hệ thống xử lý nước thải</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="nt_hethong" value="Có" id="nt_hethong_co"> Có</label>
+        <label class="choice"><input type="radio" name="nt_hethong" value="Không"> Không</label>
+      </div>
+      <div class="conditional" id="cond_nt_hethong">
+        <div class="field-row">
+          <div class="field-group"><label class="q">Công suất thiết kế <span class="unit">(m³/ngày đêm)</span></label><input type="number" step="any" id="nt_congsuat_thietke"></div>
+          <div class="field-group"><label class="q">Công suất vận hành <span class="unit">(m³/ngày đêm)</span></label><input type="number" step="any" id="nt_congsuat_vanhanh"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="q">5. Quan trắc nước thải tự động</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="nt_quantrac" value="Có" id="nt_quantrac_co"> Có</label>
+        <label class="choice"><input type="radio" name="nt_quantrac" value="Không"> Không</label>
+      </div>
+      <div class="conditional" id="cond_nt_quantrac">
+        <div class="field-group"><label class="q">Vị trí lắp đặt</label><input type="text" id="nt_vitri_lapdat"></div>
+        <div class="field-group"><label class="q">Thông số quan trắc</label><input type="text" id="nt_thongso_quantrac"></div>
+        <div class="field-group">
+          <label class="q">Truyền dữ liệu về cơ quan quản lý</label>
+          <div class="choice-group">
+            <label class="choice"><input type="radio" name="nt_truyendulieu" value="Có"> Có</label>
+            <label class="choice"><input type="radio" name="nt_truyendulieu" value="Không"> Không</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn btn-ghost" onclick="goTo(1)">← Quay lại</button>
+      <button type="button" class="btn btn-primary" onclick="goTo(3)">Tiếp theo →</button>
+    </div>
+  </section>
+
+  <!-- PANEL 3 - PHAN IV -->
+  <section class="panel" data-panel="3">
+    <h2>Phần IV. Thông tin về khí thải</h2>
+
+    <div class="field-group">
+      <label class="q">1. Cơ sở có phát sinh bụi, khí thải không?</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="kt_phatsinh" value="Có" id="kt_phatsinh_co"> Có</label>
+        <label class="choice"><input type="radio" name="kt_phatsinh" value="Không"> Không</label>
+      </div>
+      <div class="conditional" id="cond_kt_phatsinh">
+        <label class="q">Nguồn phát sinh</label>
+        <div class="choice-group">
+          <label class="choice"><input type="checkbox" id="kt_lohoi"> Lò hơi</label>
+          <label class="choice"><input type="checkbox" id="kt_maypatdien"> Máy phát điện</label>
+          <label class="choice"><input type="checkbox" id="kt_losay"> Lò sấy</label>
+          <label class="choice"><input type="checkbox" id="kt_khac_check"> Khác</label>
+        </div>
+        <div class="conditional" id="cond_kt_khac"><input type="text" id="kt_khac_text" placeholder="Ghi rõ..."></div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="q">2. Lưu lượng khí thải <span class="unit">(m³/giờ)</span></label>
+      <input type="number" step="any" id="kt_luuluong">
+    </div>
+
+    <div class="field-group">
+      <label class="q">3. Hệ thống xử lý khí thải</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="kt_hethong" value="Có" id="kt_hethong_co"> Có</label>
+        <label class="choice"><input type="radio" name="kt_hethong" value="Không"> Không</label>
+      </div>
+      <div class="conditional" id="cond_kt_hethong">
+        <div class="field-group"><label class="q">Công suất xử lý <span class="unit">(m³/giờ)</span></label><input type="number" step="any" id="kt_congsuat_xuly"></div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="q">4. Quan trắc khí thải tự động</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="kt_quantrac" value="Có"> Có</label>
+        <label class="choice"><input type="radio" name="kt_quantrac" value="Không"> Không</label>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn btn-ghost" onclick="goTo(2)">← Quay lại</button>
+      <button type="button" class="btn btn-primary" onclick="goTo(4)">Tiếp theo →</button>
+    </div>
+  </section>
+
+  <!-- PANEL 4 - PHAN V -->
+  <section class="panel" data-panel="4">
+    <h2>Phần V. Thông tin về chất thải rắn</h2>
+
+    <label class="q">1. Chất thải rắn sinh hoạt</label>
+    <div class="field-row">
+      <div class="field-group"><label class="q">Khối lượng phát sinh <span class="unit">(tấn/năm)</span></label><input type="number" step="any" id="ctr_sh_khoiluong"></div>
+      <div class="field-group"><label class="q">Đơn vị thu gom</label><input type="text" id="ctr_sh_donvi"></div>
+    </div>
+    <p class="hint" style="margin-left:0;">Vui lòng đính kèm hợp đồng thu gom chất thải rắn sinh hoạt khi gửi bản in.</p>
+
+    <label class="q">2. Chất thải công nghiệp thông thường</label>
+    <div class="field-row">
+      <div class="field-group"><label class="q">Khối lượng phát sinh <span class="unit">(kg/năm)</span></label><input type="number" step="any" id="ctr_cn_khoiluong"></div>
+      <div class="field-group"><label class="q">Đơn vị thu gom</label><input type="text" id="ctr_cn_donvi"></div>
+    </div>
+    <p class="hint" style="margin-left:0;">Vui lòng đính kèm hợp đồng, chứng từ chuyển giao khi gửi bản in.</p>
+
+    <div class="field-group">
+      <label class="q">3. Chất thải nguy hại</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="ctnh" value="Có" id="ctnh_co"> Có</label>
+        <label class="choice"><input type="radio" name="ctnh" value="Không"> Không</label>
+      </div>
+      <div class="conditional" id="cond_ctnh">
+        <div class="field-row">
+          <div class="field-group"><label class="q">Khối lượng phát sinh <span class="unit">(kg/năm)</span></label><input type="number" step="any" id="ctnh_khoiluong"></div>
+          <div class="field-group"><label class="q">Mã CTNH (nếu có)</label><input type="text" id="ctnh_ma"></div>
+        </div>
+        <div class="field-group"><label class="q">Đơn vị thu gom, vận chuyển, xử lý</label><input type="text" id="ctnh_donvi"></div>
+        <p class="hint" style="margin-left:0;">Vui lòng đính kèm hợp đồng, chứng từ chuyển giao chất thải nguy hại khi gửi bản in.</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn btn-ghost" onclick="goTo(3)">← Quay lại</button>
+      <button type="button" class="btn btn-primary" onclick="goTo(5)">Tiếp theo →</button>
+    </div>
+  </section>
+
+  <!-- PANEL 5 - PHAN VI -->
+  <section class="panel" data-panel="5">
+    <h2>Phần VI. Phòng ngừa và ứng phó sự cố môi trường</h2>
+
+    <div class="field-group">
+      <label class="q">Cơ sở có công trình ứng phó sự cố môi trường không?</label>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="succo" value="Có" id="succo_co"> Có</label>
+        <label class="choice"><input type="radio" name="succo" value="Không"> Không</label>
+      </div>
+      <div class="conditional" id="cond_succo">
+        <label class="q">Mô tả</label>
+        <textarea id="succo_mota"></textarea>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:22px 0;">
+
+    <div class="summary-box">
+      <b>Cam kết:</b> Doanh nghiệp/cơ sở sản xuất, kinh doanh, dịch vụ cam kết các thông tin cung cấp trong Phiếu khảo sát này là đúng với thực tế hoạt động của doanh nghiệp và chịu trách nhiệm trước pháp luật về tính chính xác của các thông tin đã cung cấp.
+    </div>
+
+    <div class="field-row">
+      <div class="field-group"><label class="q">Họ và tên người đại diện ký</label><input type="text" id="daidien_hoten"></div>
+      <div class="field-group"><label class="q">Chức vụ</label><input type="text" id="daidien_chucvu"></div>
+      <div class="field-group"><label class="q">Ngày lập phiếu</label><input type="date" id="ngay_lap"></div>
+    </div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn btn-ghost" onclick="goTo(4)">← Quay lại</button>
+      <button type="button" class="btn btn-primary" onclick="goTo(6)">Tiếp theo: Xuất & Gửi →</button>
+    </div>
+  </section>
+
+  <!-- PANEL 6 - EXPORT & SUBMIT -->
+  <section class="panel" data-panel="6">
+    <h2>Xuất & Gửi phiếu khảo sát</h2>
+    <p class="hint">Kiểm tra lại thông tin trước khi xuất file Word để in, ký tên, đóng dấu — và gửi dữ liệu điện tử.</p>
+
+    <div class="export-actions">
+      <div class="export-card">
+        <h3>1. Xuất bản in (Word)</h3>
+        <p>Tạo file .docx theo đúng mẫu Phiếu khảo sát để in ra, ký tên và đóng dấu, sau đó gửi bản giấy về UBND Phường Tân Phú.</p>
+        <button type="button" class="btn btn-gold" onclick="exportWord()">⬇ Xuất file Word</button>
+      </div>
+      <div class="export-card">
+        <h3>2. Gửi dữ liệu điện tử</h3>
+        <p>Gửi trực tiếp thông tin đã điền về hệ thống tiếp nhận của UBND Phường Tân Phú. Vui lòng chỉ gửi một lần sau khi đã kiểm tra đầy đủ.</p>
+        <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitData()">📤 Gửi dữ liệu</button>
+      </div>
+    </div>
+
+    <div id="status-msg"></div>
+
+    <div class="nav-buttons">
+      <button type="button" class="btn btn-ghost" onclick="goTo(5)">← Quay lại</button>
+      <span class="draft-pill" id="draftPill"><span class="dot"></span><span id="draftText">Chưa lưu nháp</span></span>
+    </div>
+  </section>
+
+  </form>
+</div>
+
+<footer class="app-footer">
+  Phiếu khảo sát ban hành kèm theo Công văn của UBND phường Tân Phú &middot; Dữ liệu được lưu nháp tự động trên máy tính của bạn giữa các lần điền.
+</footer>
+
+<script>
+/* ============================================================
+   CẤU HÌNH — Cán bộ phụ trách (Phòng KTHTĐT) điền trước khi gửi
+   ============================================================ */
+const CONFIG = {
+  // Dán URL Web App của Google Apps Script sau khi triển khai (xem hướng dẫn đi kèm)
+  GOOGLE_SCRIPT_URL: "PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE",
+  SO_CONG_VAN: "___/UBND-KTHTĐT",
+  NGAY_CONG_VAN: "___/7/2026",
+  DON_VI_BAN_HANH: "Ủy ban nhân dân phường Tân Phú"
+};
+
+/* ============================================================
+   TAB NAVIGATION
+   ============================================================ */
+const TAB_LABELS = ["I. Chung","II. Pháp lý MT","III. Nước thải","IV. Khí thải","V. Chất thải rắn","VI. Sự cố & Cam kết","Xuất & Gửi"];
+let currentTab = 0;
+
+function renderTabs(){
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.innerHTML = '';
+  TAB_LABELS.forEach((label, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tab-btn' + (i === currentTab ? ' active' : '');
+    b.innerHTML = `<span class="n">${i+1}</span>${label}`;
+    b.onclick = () => goTo(i);
+    tabsEl.appendChild(b);
+  });
+}
+
+function goTo(i){
+  currentTab = i;
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', Number(p.dataset.panel) === i));
+  renderTabs();
+  window.scrollTo({top:0, behavior:'smooth'});
+  saveDraft();
+}
+
+/* ============================================================
+   CONDITIONAL FIELDS
+   ============================================================ */
+function setupConditionals(){
+  // Checkbox-triggered
+  document.getElementById('hs_khac_check').addEventListener('change', function(){
+    document.getElementById('cond_hs_khac').classList.toggle('show', this.checked);
+  });
+  document.getElementById('kt_khac_check').addEventListener('change', function(){
+    document.getElementById('cond_kt_khac').classList.toggle('show', this.checked);
+  });
+
+  // Radio-triggered pairs: [radioName, condId, valueThatShows]
+  const radioConds = [
+    ['nt_tiepnhan', 'cond_nt_tiepnhan_khac', 'Khác'],
+    ['nt_hethong', 'cond_nt_hethong', 'Có'],
+    ['nt_quantrac', 'cond_nt_quantrac', 'Có'],
+    ['kt_phatsinh', 'cond_kt_phatsinh', 'Có'],
+    ['kt_hethong', 'cond_kt_hethong', 'Có'],
+    ['ctnh', 'cond_ctnh', 'Có'],
+    ['succo', 'cond_succo', 'Có'],
+  ];
+  radioConds.forEach(([name, condId]) => {
+    document.getElementsByName(name).forEach(r => {
+      r.addEventListener('change', () => {
+        document.getElementsByName(name).forEach(r2 => {
+          if (r2.checked){
+            document.getElementById(condId).classList.toggle('show', r2.value === 'Có' || r2.value === 'Khác');
+          }
+        });
+      });
+    });
+  });
+
+  // Choice pill highlight
+  document.querySelectorAll('.choice input').forEach(inp => {
+    inp.addEventListener('change', () => {
+      if (inp.type === 'radio'){
+        document.getElementsByName(inp.name).forEach(r => r.closest('.choice').classList.toggle('checked', r.checked));
+      } else {
+        inp.closest('.choice').classList.toggle('checked', inp.checked);
+      }
+    });
+  });
+
+  // Auto-sum total wastewater
+  ['nt_sinhhoat','nt_sanxuat'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      const a = parseFloat(document.getElementById('nt_sinhhoat').value) || 0;
+      const b = parseFloat(document.getElementById('nt_sanxuat').value) || 0;
+      document.getElementById('nt_tong').value = (a + b) || '';
+    });
+  });
+}
+
+/* ============================================================
+   DATA COLLECTION
+   ============================================================ */
+function val(id){ const el = document.getElementById(id); return el ? el.value.trim() : ''; }
+function chk(id){ const el = document.getElementById(id); return el ? el.checked : false; }
+function radio(name){ const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : ''; }
+
+function collectData(){
+  return {
+    timestamp: new Date().toISOString(),
+    ten_dn: val('ten_dn'), mst: val('mst'), ten_chinhanh: val('ten_chinhanh'),
+    dia_chi_tru_so: val('dia_chi_tru_so'), dia_diem_hoat_dong: val('dia_diem_hoat_dong'),
+    nganh_nghe: val('nganh_nghe'),
+    lienhe_hoten: val('lienhe_hoten'), lienhe_chucvu: val('lienhe_chucvu'),
+    lienhe_dienthoai: val('lienhe_dienthoai'), lienhe_email: val('lienhe_email'),
+
+    hs_dtm: chk('hs_dtm'), hs_gpmt: chk('hs_gpmt'), hs_dkmt: chk('hs_dkmt'),
+    hs_khac_check: chk('hs_khac_check'), hs_khac_text: val('hs_khac_text'),
+    hs_so_vb: val('hs_so_vb'), hs_ngay_cap: val('hs_ngay_cap'), hs_co_quan_cap: val('hs_co_quan_cap'),
+    congsuat_pheduyet: val('congsuat_pheduyet'), congsuat_thucte: val('congsuat_thucte'),
+
+    nt_nguon: radio('nt_nguon'), nt_tiepnhan: radio('nt_tiepnhan'), nt_tiepnhan_khac_text: val('nt_tiepnhan_khac_text'),
+    nt_sinhhoat: val('nt_sinhhoat'), nt_sanxuat: val('nt_sanxuat'), nt_tong: val('nt_tong'),
+    nt_hethong: radio('nt_hethong'), nt_congsuat_thietke: val('nt_congsuat_thietke'), nt_congsuat_vanhanh: val('nt_congsuat_vanhanh'),
+    nt_quantrac: radio('nt_quantrac'), nt_vitri_lapdat: val('nt_vitri_lapdat'), nt_thongso_quantrac: val('nt_thongso_quantrac'),
+    nt_truyendulieu: radio('nt_truyendulieu'),
+
+    kt_phatsinh: radio('kt_phatsinh'), kt_lohoi: chk('kt_lohoi'), kt_maypatdien: chk('kt_maypatdien'),
+    kt_losay: chk('kt_losay'), kt_khac_check: chk('kt_khac_check'), kt_khac_text: val('kt_khac_text'),
+    kt_luuluong: val('kt_luuluong'), kt_hethong: radio('kt_hethong'), kt_congsuat_xuly: val('kt_congsuat_xuly'),
+    kt_quantrac: radio('kt_quantrac'),
+
+    ctr_sh_khoiluong: val('ctr_sh_khoiluong'), ctr_sh_donvi: val('ctr_sh_donvi'),
+    ctr_cn_khoiluong: val('ctr_cn_khoiluong'), ctr_cn_donvi: val('ctr_cn_donvi'),
+    ctnh: radio('ctnh'), ctnh_khoiluong: val('ctnh_khoiluong'), ctnh_ma: val('ctnh_ma'), ctnh_donvi: val('ctnh_donvi'),
+
+    succo: radio('succo'), succo_mota: val('succo_mota'),
+    daidien_hoten: val('daidien_hoten'), daidien_chucvu: val('daidien_chucvu'), ngay_lap: val('ngay_lap')
+  };
+}
+
+/* ============================================================
+   DRAFT AUTOSAVE (localStorage — file này chạy độc lập trên máy,
+   không phải Claude Artifact, nên localStorage hoạt động bình thường)
+   ============================================================ */
+const DRAFT_KEY = 'khaosat_moitruong_draft_v1';
+
+function saveDraft(){
+  try{
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(collectData()));
+    const pill = document.getElementById('draftPill');
+    const txt = document.getElementById('draftText');
+    if (pill && txt){
+      pill.classList.add('saved');
+      txt.textContent = 'Đã lưu nháp lúc ' + new Date().toLocaleTimeString('vi-VN');
+    }
+  }catch(e){ /* ignore quota errors */ }
+}
+
+function loadDraft(){
+  try{
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    Object.keys(d).forEach(k => {
+      const el = document.getElementById(k);
+      if (el && typeof d[k] === 'string') el.value = d[k];
+    });
+    // restore checkboxes
+    ['hs_dtm','hs_gpmt','hs_dkmt','hs_khac_check','kt_lohoi','kt_maypatdien','kt_losay','kt_khac_check'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && d[id]) el.checked = true;
+    });
+    // restore radios
+    ['nt_nguon','nt_tiepnhan','nt_hethong','nt_quantrac','nt_truyendulieu','kt_phatsinh','kt_hethong','kt_quantrac','ctnh','succo'].forEach(name => {
+      if (d[name]){
+        const el = document.querySelector(`input[name="${name}"][value="${CSS.escape(d[name])}"]`);
+        if (el) el.checked = true;
+      }
+    });
+    // re-trigger conditional visibility + pill styling
+    document.querySelectorAll('.choice input:checked').forEach(inp => inp.dispatchEvent(new Event('change')));
+  }catch(e){ /* ignore */ }
+}
+
+/* Autosave every change, debounced */
+let saveTimer = null;
+document.addEventListener('input', () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveDraft, 600); });
+document.addEventListener('change', () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveDraft, 600); });
+
+/* ============================================================
+   VALIDATION
+   ============================================================ */
+function validateRequired(){
+  const requiredIds = ['ten_dn','mst','dia_chi_tru_so','dia_diem_hoat_dong','nganh_nghe','lienhe_hoten','lienhe_dienthoai'];
+  const missing = requiredIds.filter(id => !val(id));
+  if (missing.length){
+    goTo(0);
+    alert('Vui lòng điền đầy đủ các trường bắt buộc (có dấu *) ở Phần I trước khi xuất/gửi.');
+    return false;
+  }
+  return true;
+}
+
+/* ============================================================
+   WORD EXPORT (docx.js) — layout phỏng theo mẫu phiếu gốc
+   ============================================================ */
+function cb(state, label){ return (state ? '☒' : '☐') + ' ' + label; }
+
+async function exportWord(){
+  if (!validateRequired()) return;
+  if (typeof docx === 'undefined'){
+    alert('Không thể tải thư viện tạo file Word. Vui lòng kiểm tra kết nối Internet rồi thử lại.');
+    return;
+  }
+  const d = collectData();
+  const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle } = docx;
+
+  const line = (label, value, opts={}) => new Paragraph({
+    spacing:{ after:120 },
+    children:[
+      new TextRun({ text: label + (label ? ' ' : ''), bold:true, size:22 }),
+      new TextRun({ text: value || '................................................', size:22 })
+    ]
+  });
+  const heading = (text) => new Paragraph({
+    spacing:{ before:260, after:140 },
+    children:[ new TextRun({ text, bold:true, size:24, color:'0B2A4A' }) ]
+  });
+  const plain = (text, opts={}) => new Paragraph({ spacing:{after:100}, alignment: opts.center? AlignmentType.CENTER : undefined, children:[ new TextRun({ text, italics: opts.italic||false, bold: opts.bold||false, size: opts.size||22 }) ] });
+
+  const doc = new Document({
+    sections:[{
+      properties:{},
+      children:[
+        new Paragraph({ alignment:AlignmentType.CENTER, children:[ new TextRun({ text:'PHIẾU KHẢO SÁT THU THẬP THÔNG TIN', bold:true, size:28 }) ] }),
+        new Paragraph({ alignment:AlignmentType.CENTER, children:[ new TextRun({ text:'DOANH NGHIỆP/CƠ SỞ SẢN XUẤT, KINH DOANH, DỊCH VỤ', bold:true, size:26 }) ] }),
+        new Paragraph({ alignment:AlignmentType.CENTER, children:[ new TextRun({ text:'Phục vụ công tác quản lý nhà nước về bảo vệ môi trường', italics:true, size:22 }) ] }),
+        new Paragraph({ alignment:AlignmentType.CENTER, spacing:{after:200}, children:[ new TextRun({ text:`(Ban hành kèm theo Công văn số ${CONFIG.SO_CONG_VAN} ngày ${CONFIG.NGAY_CONG_VAN} của ${CONFIG.DON_VI_BAN_HANH})`, italics:true, size:20 }) ] }),
+
+        heading('PHẦN I. THÔNG TIN CHUNG'),
+        line('1. Tên doanh nghiệp/cơ sở:', d.ten_dn),
+        line('2. Mã số thuế:', d.mst),
+        line('3. Tên Chi nhánh/địa điểm kinh doanh:', d.ten_chinhanh),
+        line('4. Địa chỉ trụ sở chính:', d.dia_chi_tru_so),
+        line('5. Địa điểm hoạt động sản xuất/kinh doanh:', d.dia_diem_hoat_dong),
+        line('6. Ngành nghề đang hoạt động:', d.nganh_nghe),
+        line('7. Người liên hệ - Họ và tên:', d.lienhe_hoten + '   Chức vụ: ' + (d.lienhe_chucvu||'...')),
+        line('   Điện thoại:', d.lienhe_dienthoai + '   Email: ' + (d.lienhe_email||'...')),
+
+        heading('PHẦN II. THÔNG TIN VỀ PHÁP LÝ MÔI TRƯỜNG'),
+        plain('1. Hồ sơ pháp lý môi trường đã được phê duyệt:'),
+        plain(cb(d.hs_dtm,'Quyết định phê duyệt ĐTM') + '     ' + cb(d.hs_gpmt,'Giấy phép môi trường') + '     ' + cb(d.hs_dkmt,'Đăng ký môi trường')),
+        plain(cb(d.hs_khac_check,'Khác: ' + (d.hs_khac_text||'...'))),
+        line('Số văn bản:', d.hs_so_vb + '   Ngày cấp: ' + (d.hs_ngay_cap||'...') + '   Cơ quan cấp: ' + (d.hs_co_quan_cap||'...')),
+        line('2. Công suất theo hồ sơ pháp lý được phê duyệt:', d.congsuat_pheduyet),
+        line('3. Công suất hoạt động thực tế hiện nay:', d.congsuat_thucte),
+
+        heading('PHẦN III. THÔNG TIN VỀ NƯỚC THẢI'),
+        plain('1. Nguồn phát sinh nước thải: ' + (d.nt_nguon || '................')),
+        plain('2. Nguồn tiếp nhận nước thải sau xử lý: ' + (d.nt_tiepnhan || '................') + (d.nt_tiepnhan==='Khác' ? (' - ' + d.nt_tiepnhan_khac_text) : '')),
+        line('3. Tổng lượng nước thải - Sinh hoạt:', (d.nt_sinhhoat||'...') + ' m³/ngày đêm; Sản xuất: ' + (d.nt_sanxuat||'...') + ' m³/ngày đêm; Tổng: ' + (d.nt_tong||'...') + ' m³/ngày đêm'),
+        plain('4. Hệ thống xử lý nước thải: ' + cb(d.nt_hethong==='Có', 'Có') + '  ' + cb(d.nt_hethong==='Không','Không')),
+        line('   Công suất thiết kế:', (d.nt_congsuat_thietke||'...') + ' m³/ngày đêm; Công suất vận hành: ' + (d.nt_congsuat_vanhanh||'...') + ' m³/ngày đêm'),
+        plain('5. Quan trắc nước thải tự động: ' + cb(d.nt_quantrac==='Có','Có') + '  ' + cb(d.nt_quantrac==='Không','Không')),
+        line('   Vị trí lắp đặt:', d.nt_vitri_lapdat),
+        line('   Thông số quan trắc:', d.nt_thongso_quantrac),
+        plain('   Truyền dữ liệu về cơ quan quản lý: ' + cb(d.nt_truyendulieu==='Có','Có') + '  ' + cb(d.nt_truyendulieu==='Không','Không')),
+
+        heading('PHẦN IV. THÔNG TIN VỀ KHÍ THẢI'),
+        plain('1. Cơ sở có phát sinh bụi, khí thải không? ' + cb(d.kt_phatsinh==='Có','Có') + '  ' + cb(d.kt_phatsinh==='Không','Không')),
+        plain('   Nguồn phát sinh: ' + cb(d.kt_lohoi,'Lò hơi') + '  ' + cb(d.kt_maypatdien,'Máy phát điện') + '  ' + cb(d.kt_losay,'Lò sấy') + '  ' + cb(d.kt_khac_check,'Khác: ' + (d.kt_khac_text||'...'))),
+        line('2. Lưu lượng khí thải:', (d.kt_luuluong||'...') + ' m³/giờ'),
+        plain('3. Hệ thống xử lý khí thải: ' + cb(d.kt_hethong==='Có','Có') + '  ' + cb(d.kt_hethong==='Không','Không') + '   Công suất xử lý: ' + (d.kt_congsuat_xuly||'...') + ' m³/giờ'),
+        plain('4. Quan trắc khí thải tự động: ' + cb(d.kt_quantrac==='Có','Có') + '  ' + cb(d.kt_quantrac==='Không','Không')),
+
+        heading('PHẦN V. THÔNG TIN VỀ CHẤT THẢI RẮN'),
+        line('1. Chất thải rắn sinh hoạt - Khối lượng phát sinh:', (d.ctr_sh_khoiluong||'...') + ' tấn/năm'),
+        line('   Đơn vị thu gom:', d.ctr_sh_donvi),
+        line('2. Chất thải công nghiệp thông thường - Khối lượng phát sinh:', (d.ctr_cn_khoiluong||'...') + ' kg/năm'),
+        line('   Đơn vị thu gom:', d.ctr_cn_donvi),
+        plain('3. Chất thải nguy hại: ' + cb(d.ctnh==='Có','Có') + '  ' + cb(d.ctnh==='Không','Không')),
+        line('   Khối lượng phát sinh:', (d.ctnh_khoiluong||'...') + ' kg/năm    Mã CTNH: ' + (d.ctnh_ma||'...')),
+        line('   Đơn vị thu gom, vận chuyển, xử lý:', d.ctnh_donvi),
+
+        heading('PHẦN VI. PHÒNG NGỪA VÀ ỨNG PHÓ SỰ CỐ MÔI TRƯỜNG'),
+        plain('Cơ sở có công trình ứng phó sự cố môi trường không? ' + cb(d.succo==='Có','Có') + '  ' + cb(d.succo==='Không','Không')),
+        line('Mô tả:', d.succo_mota),
+
+        heading('CAM KẾT'),
+        plain('Doanh nghiệp/cơ sở sản xuất, kinh doanh, dịch vụ cam kết các thông tin cung cấp trong Phiếu khảo sát này là đúng với thực tế hoạt động của doanh nghiệp và chịu trách nhiệm trước pháp luật về tính chính xác của các thông tin đã cung cấp.'),
+
+        new Paragraph({ spacing:{before:400}, alignment:AlignmentType.RIGHT, children:[ new TextRun({ text:'TP. Hồ Chí Minh, ngày ' + (d.ngay_lap ? new Date(d.ngay_lap).getDate() : '....') + ' tháng ' + (d.ngay_lap ? (new Date(d.ngay_lap).getMonth()+1) : '....') + ' năm ' + (d.ngay_lap ? new Date(d.ngay_lap).getFullYear() : '........'), italics:true, size:22 }) ] }),
+        new Paragraph({ alignment:AlignmentType.RIGHT, spacing:{after:20}, children:[ new TextRun({ text:'ĐẠI DIỆN DOANH NGHIỆP/CƠ SỞ', bold:true, size:22 }) ] }),
+        new Paragraph({ alignment:AlignmentType.RIGHT, spacing:{after:1200}, children:[ new TextRun({ text:'(Ký, ghi rõ họ tên, chức vụ và đóng dấu)', italics:true, size:20 }) ] }),
+        new Paragraph({ alignment:AlignmentType.RIGHT, children:[ new TextRun({ text: d.daidien_hoten || '', bold:true, size:22 }) ] }),
+        new Paragraph({ alignment:AlignmentType.RIGHT, children:[ new TextRun({ text: d.daidien_chucvu || '', size:20 }) ] }),
+      ]
+    }]
+  });
+
+  const blob = await Packer.toBlob(doc);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const safeName = (d.ten_dn || 'phieu_khao_sat').replace(/[^\p{L}\p{N}_\-]+/gu, '_').slice(0,60);
+  a.href = url;
+  a.download = `Phieu_khao_sat_moi_truong_${safeName}.docx`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+/* ============================================================
+   SUBMIT TO GOOGLE SHEET (Apps Script Web App)
+   ============================================================ */
+async function submitData(){
+  if (!validateRequired()) return;
+  if (CONFIG.GOOGLE_SCRIPT_URL.indexOf('PASTE_') === 0){
+    showStatus('err', 'Chưa cấu hình nơi tiếp nhận dữ liệu. Vui lòng liên hệ Phòng KTHTĐT.');
+    return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Đang gửi...';
+  showStatus('pending', 'Đang gửi dữ liệu, vui lòng đợi...');
+
+  const data = collectData();
+  try{
+    const res = await fetch(CONFIG.GOOGLE_SCRIPT_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' }, // tránh CORS preflight
+      body: JSON.stringify(data)
+    });
+    const json = await res.json().catch(() => ({ result:'ok' }));
+    if (json && json.result === 'error'){
+      throw new Error(json.message || 'Lỗi không xác định');
+    }
+    showStatus('ok', '✓ Đã gửi dữ liệu thành công. Cảm ơn quý doanh nghiệp đã phối hợp. Vui lòng vẫn in, ký tên, đóng dấu bản Word và gửi về UBND Phường.');
+    btn.textContent = '✓ Đã gửi';
+  }catch(err){
+    showStatus('err', 'Gửi không thành công (' + err.message + '). Vui lòng kiểm tra kết nối mạng và thử lại, hoặc liên hệ trực tiếp Phòng KTHTĐT.');
+    btn.disabled = false; btn.textContent = '📤 Gửi dữ liệu';
+  }
+}
+
+function showStatus(type, msg){
+  const el = document.getElementById('status-msg');
+  el.className = type;
+  el.textContent = msg;
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderTabs();
+setupConditionals();
+loadDraft();
+</script>
+</body>
+</html>
